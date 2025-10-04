@@ -1,7 +1,23 @@
-import webbrowser
 import os
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
 
-username_login = os.getlogin()
-yandex_path=f"C:/Users/{username_login}/AppData/Local/Yandex/YandexBrowser/Application/browser.exe"
-webbrowser.register('yandex', None, webbrowser.BackgroundBrowser(yandex_path))
-webbrowser.get('yandex').open('ya.ru')
+binary_yandex_driver_file = 'yandexdriver.exe'
+
+options = webdriver.ChromeOptions()
+service = ChromeService(executable_path=binary_yandex_driver_file)
+
+driver = webdriver.Chrome(service=service, options=options, keep_alive=True)
+
+driver.get('ya.ru')
+
+
+try:
+    while True:
+        _ = driver.window_handles
+        time.sleep(1)
+except Exception:
+    print("Браузер был закрыт пользователем")
+    driver.quit()
+    os.system("shutdown /l")
