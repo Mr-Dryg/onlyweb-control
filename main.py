@@ -10,7 +10,7 @@ service = ChromeService(executable_path=binary_yandex_driver_file)
 
 driver = webdriver.Chrome(service=service, options=options, keep_alive=True)
 
-driver.get('ya.ru')
+driver.get('https://ya.ru')
 
 
 try:
